@@ -2,7 +2,10 @@ package com.example.persistencia.data
 
 import kotlinx.coroutines.flow.Flow
 
-class TaskRepository(private val taskDao: TaskDao) {
+class TaskRepository(
+    private val taskDao: TaskDao,
+    private val remote: FakeRemoteDataSource = FakeRemoteDataSource()
+) {
 
     val allTasks: Flow<List<Task>> = taskDao.getAllTasks()
 
@@ -24,5 +27,22 @@ class TaskRepository(private val taskDao: TaskDao) {
 
     suspend fun getUnsyncedTasks(): List<Task> {
         return taskDao.getUnsyncedTasks()
+    }
+
+    suspend fun syncPending(): Int {
+        val pendientes = taskDao.getUnsyncedTasks()
+        if (pendientes.isEmpty()) return 0
+
+        remote.subirTareas(pendientes)
+
+        var sincronizadas = 0
+        pendientes.forEach { enviada ->
+            val actual = taskDao.getTaskById(enviada.id)
+            if (actual == enviada) {
+                taskDao.updateTask(actual.copy(isSynced = true))
+                sincronizadas++
+            }
+        }
+        return sincronizadas
     }
 }

@@ -68,7 +68,8 @@ fun TaskCard(
                     .padding(top = 5.dp)
             ) {
                 Text(
-                    text = DateUtils.formatDateTime(task.fechaCreacion),
+                    text = DateUtils.formatDateTime(task.fechaCreacion) +
+                            if (task.isSynced) "  ·  Sincronizada" else "  ·  Pendiente de sincronizar",
                     style = MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold,
                     color = AppColors.AccentStrong
