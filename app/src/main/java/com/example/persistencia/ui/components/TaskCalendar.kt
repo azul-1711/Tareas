@@ -23,14 +23,10 @@ import androidx.compose.ui.unit.dp
 import com.example.persistencia.ui.theme.AppColors
 import com.example.persistencia.ui.utils.DateUtils
 
-/**
- * Calendario mensual reutilizable. offset/daysInMonth se recalculan
- * solo cuando cambian year/month (remember), no en cada recomposición.
- */
 @Composable
 fun TaskCalendar(
     year: Int,
-    month: Int, // 0-based, igual que Calendar.MONTH
+    month: Int,
     selectedDay: Int,
     daysWithTasks: Set<Int>,
     onDaySelected: (Int) -> Unit,

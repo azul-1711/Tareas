@@ -12,7 +12,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.persistencia.ui.theme.AppColors
 
-/** Estado vacío reutilizable, centrado en todo el espacio disponible. */
 @Composable
 fun EmptyTasksView(message: String = "Sin tareas registradas.") {
     Box(

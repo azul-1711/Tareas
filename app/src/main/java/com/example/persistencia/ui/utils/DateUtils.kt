@@ -5,11 +5,6 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-/**
- * Utilidades de fecha usadas por el calendario y las pantallas nuevas.
- * No reemplaza ni toca la lógica de persistencia: solo formatea/calcula
- * a partir del timestamp (fechaCreacion) que ya trae cada Task.
- */
 object DateUtils {
 
     val monthsEs = listOf(
@@ -17,7 +12,6 @@ object DateUtils {
         "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
     )
 
-    // Lunes a Domingo, igual que el mockup
     val weekdaysShortEs = listOf("Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do")
 
     private val weekdaysFullEs = listOf(
@@ -34,11 +28,9 @@ object DateUtils {
         return cal.getActualMaximum(Calendar.DAY_OF_MONTH)
     }
 
-    /** Offset (0 = Lunes) del primer día del mes, para alinear la cuadrícula. */
     fun firstDayOffset(year: Int, month: Int): Int {
         val cal = Calendar.getInstance()
         cal.set(year, month, 1)
-        // Calendar.DAY_OF_WEEK: Domingo=1 ... Sábado=7 -> convertir a Lunes=0
         val dow = cal.get(Calendar.DAY_OF_WEEK)
         return (dow + 5) % 7
     }

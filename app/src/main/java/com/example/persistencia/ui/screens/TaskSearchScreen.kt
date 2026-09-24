@@ -19,11 +19,6 @@ import com.example.persistencia.ui.theme.AppColors
 import com.example.persistencia.ui.utils.DateUtils
 import com.example.persistencia.ui.utils.TaskDateFilter
 
-/**
- * Pantalla "Buscar por fecha". year/month/selectedDay ahora viven en
- * TaskAppScreen (estado elevado) para no reiniciarse cada vez que se
- * cambia de pestaña y se vuelve a esta.
- */
 @Composable
 fun TaskSearchScreen(
     tasks: List<Task>,
@@ -91,7 +86,6 @@ fun TaskSearchScreen(
             } else {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    // Espacio al final para que el botón + no tape la última tarjeta
                     contentPadding = PaddingValues(bottom = 96.dp)
                 ) {
                     items(dayTasks, key = { it.id }) { task ->

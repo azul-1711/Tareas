@@ -24,7 +24,6 @@ import androidx.compose.ui.window.PopupProperties
 import com.example.persistencia.ui.theme.AppColors
 import com.example.persistencia.ui.theme.AppShapes
 
-/** Menú flotante de acciones de la tarea, con icono en chip circular (estilo Mova). */
 @Composable
 fun FloatingTaskMenu(
     expanded: Boolean,

@@ -17,6 +17,6 @@ object AppColors {
     val AccentSoft = Color(0xFFE3EEE9)
     val AccentStrong = Color(0xFF1F4F42)
 
-    val Danger = Color(0xFFB5533C)          // acción destructiva (eliminar)
-    val DangerSoft = Color(0xFFF3E1DC)      // chip suave para el icono de eliminar
+    val Danger = Color(0xFFB5533C)
+    val DangerSoft = Color(0xFFF3E1DC)
 }

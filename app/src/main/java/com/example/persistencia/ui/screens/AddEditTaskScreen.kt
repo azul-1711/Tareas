@@ -9,6 +9,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -16,12 +17,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import com.example.persistencia.ui.theme.AppColors
 
-/**
- * Pantalla completa para crear/editar una tarea (estilo "bloc de notas").
- * Usa la misma tipografía y colores que ViewTaskScreen (Consultar).
- * No toca Task/TaskDao/TaskRepository/TaskViewModel: solo llama a
- * onConfirm con los textos finales.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddEditTaskScreen(
@@ -31,8 +26,8 @@ fun AddEditTaskScreen(
     onBack: () -> Unit,
     onConfirm: (String, String) -> Unit
 ) {
-    var titulo by remember { mutableStateOf(initialTitulo) }
-    var descripcion by remember { mutableStateOf(initialDescripcion) }
+    var titulo by rememberSaveable { mutableStateOf(initialTitulo) }
+    var descripcion by rememberSaveable { mutableStateOf(initialDescripcion) }
     val focusManager = LocalFocusManager.current
 
     val fieldColors = TextFieldDefaults.colors(
@@ -64,7 +59,6 @@ fun AddEditTaskScreen(
                     }
                 },
                 actions = {
-                    // Check dentro de un círculo verde claro (igual que los días del calendario)
                     IconButton(
                         onClick = { onConfirm(titulo, descripcion) },
                         enabled = titulo.isNotBlank(),
@@ -90,15 +84,11 @@ fun AddEditTaskScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .fillMaxSize()
-                // El TextField ya trae 16dp internos: 4 + 16 = 20dp, igual que Consultar
                 .padding(horizontal = 4.dp, vertical = 6.dp)
         ) {
-            // Título: mismo estilo que en Consultar (headlineSmall + SemiBold)
             TextField(
                 value = titulo,
                 onValueChange = {
-                    // El título se ajusta en varias líneas (sin scroll lateral).
-                    // Si pulsan Enter, pasa a la descripción en vez de crear un salto de línea.
                     if (it.contains('\n')) {
                         titulo = it.replace("\n", "")
                         focusManager.moveFocus(FocusDirection.Down)
@@ -126,7 +116,6 @@ fun AddEditTaskScreen(
 
             Spacer(modifier = Modifier.height(14.dp))
 
-            // Separador "DESCRIPCIÓN" + línea (igual que en Consultar)
             Text(
                 text = "DESCRIPCIÓN",
                 style = MaterialTheme.typography.labelSmall,
@@ -139,7 +128,6 @@ fun AddEditTaskScreen(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
-            // Descripción: mismo estilo que en Consultar (bodyMedium, en negro Ink para que se note dónde escribir)
             TextField(
                 value = descripcion,
                 onValueChange = { descripcion = it },

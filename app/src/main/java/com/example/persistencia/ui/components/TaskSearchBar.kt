@@ -14,11 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.example.persistencia.ui.theme.AppColors
 import com.example.persistencia.ui.theme.AppShapes
 
-/**
- * Barra de búsqueda por título, reutilizada en Todas/Pendientes/Completadas.
- * Filtra en memoria: no toca el DAO ni crea una fuente de datos nueva,
- * el filtrado real ocurre en cada pantalla con task.titulo.contains(...).
- */
+
 @Composable
 fun TaskSearchBar(
     query: String,

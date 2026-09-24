@@ -32,7 +32,6 @@ private val tabs = listOf(
     NavTab("Completadas", Icons.Outlined.CheckCircle)
 )
 
-/** Pestaña seleccionada: 0 = Buscar por fecha, 1 = Todas, 2 = Pendientes, 3 = Completadas. */
 @Composable
 fun TaskBottomNavigation(
     selectedTab: Int,

@@ -14,12 +14,6 @@ import com.example.persistencia.ui.components.TaskBottomNavigation
 import com.example.persistencia.ui.theme.AppColors
 import com.example.persistencia.ui.utils.DateUtils
 
-/**
- * Ya no crea su propio TaskViewModel ni maneja Agregar/Actualizar/Consultar
- * con un sealed class + when: eso ahora vive en TaskNavHost.kt (rutas reales).
- * Esta pantalla solo compone las 4 pestañas (Buscar/Todas/Pendientes/Completadas)
- * y delega cada acción a los callbacks que le pasan.
- */
 @Composable
 fun TaskAppScreen(
     tasks: List<Task>,
@@ -29,14 +23,7 @@ fun TaskAppScreen(
     onEditTask: (Task) -> Unit,
     onViewTask: (Task) -> Unit
 ) {
-    // rememberSaveable (no remember): esta pantalla sale de composición al
-    // navegar a "add"/"edit"/"view" y se recrea al volver. Con remember a
-    // secas, selectedTab (y el calendario) se reiniciaban a sus valores por
-    // defecto cada vez, por eso siempre volvía a la pestaña 0 ("Buscar").
     var selectedTab by rememberSaveable { mutableIntStateOf(0) }
-
-    // Estado del calendario de "Buscar", vive aquí para no reiniciarse
-    // al cambiar de pestaña y volver.
     val (todayYear, todayMonth, todayDay) = remember { DateUtils.currentYearMonthDay() }
     var searchYear by rememberSaveable { mutableIntStateOf(todayYear) }
     var searchMonth by rememberSaveable { mutableIntStateOf(todayMonth) }
@@ -57,9 +44,6 @@ fun TaskAppScreen(
             }
         }
     ) { innerPadding ->
-        // Mismo truco que ya funcionaba bien: las 4 pantallas se componen
-        // una sola vez y quedan vivas; cambiar de pestaña solo cambia cuál
-        // ocupa espacio (0.dp = oculta pero no destruida). No se toca.
         Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
             Box(modifier = if (selectedTab == 0) Modifier.fillMaxSize() else Modifier.size(0.dp)) {
                 TaskSearchScreen(

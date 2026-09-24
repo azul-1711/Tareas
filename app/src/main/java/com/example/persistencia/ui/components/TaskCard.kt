@@ -30,11 +30,6 @@ import com.example.persistencia.ui.theme.AppColors
 import com.example.persistencia.ui.theme.AppShapes
 import com.example.persistencia.ui.utils.DateUtils
 
-/**
- * Tarjeta visual de una tarea: checkbox a la izquierda para marcar
- * como completada, contenido central y menú flotante de acciones
- * (chip circular estilo Mova) a la derecha.
- */
 @Composable
 fun TaskCard(
     task: Task,
@@ -88,8 +83,6 @@ fun TaskCard(
                 )
             }
 
-            // Zona táctil de 48dp (antes 30dp) para que sea fácil acertar el botón.
-            // El círculo visible es un poco más grande y queda centrado dentro de esa zona.
             Box(
                 modifier = Modifier
                     .size(48.dp)

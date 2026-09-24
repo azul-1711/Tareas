@@ -18,11 +18,6 @@ import com.example.persistencia.data.Task
 import com.example.persistencia.ui.theme.AppColors
 import com.example.persistencia.ui.utils.DateUtils
 
-/**
- * Pantalla de solo lectura ("Consultar") a pantalla completa, con scroll
- * para que una descripción larga se lea completa (antes se recortaba
- * dentro del AlertDialog). No modifica ni el modelo Task ni el ViewModel.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewTaskScreen(

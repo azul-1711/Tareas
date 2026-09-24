@@ -20,7 +20,6 @@ import com.example.persistencia.ui.components.TaskCard
 import com.example.persistencia.ui.components.TaskSearchBar
 import com.example.persistencia.ui.theme.AppColors
 
-/** Pantalla "Pendientes": filtra en memoria, sin tocar el DAO. */
 @Composable
 fun PendingTasksScreen(
     tasks: List<Task>,

@@ -25,12 +25,6 @@ private object Routes {
     fun view(taskId: Int) = "view/$taskId"
 }
 
-/**
- * NavHost real (mismo patrón que AppNavHost.kt de Mova): cada pantalla es
- * un destino con su propio lugar en el back stack. A diferencia del
- * when/formMode anterior, "list" ya NO se destruye al navegar a
- * Agregar/Actualizar/Consultar y volver.
- */
 @Composable
 fun TaskNavHost() {
     val navController = rememberNavController()
