@@ -16,7 +16,7 @@ class TaskProvider : ContentProvider() {
         val CONTENT_URI: Uri = Uri.parse("content://$AUTHORITY/tasks")
         private const val TASKS = 1
         private const val TASK_ID = 2
-        private const val TABLA = "tasks" // cámbialo por el tableName de tu @Entity
+        private const val TABLA = "tasks"
 
         private val matcher = UriMatcher(UriMatcher.NO_MATCH).apply {
             addURI(AUTHORITY, "tasks", TASKS)
@@ -41,7 +41,7 @@ class TaskProvider : ContentProvider() {
         val q = SupportSQLiteQueryBuilder.builder(TABLA)
             .columns(projection).selection(sel, args).orderBy(sortOrder).create()
         return db.query(q).also { it.setNotificationUri(context!!.contentResolver, uri) }
-    }
+    }b
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
         if (matcher.match(uri) != TASKS) throw IllegalArgumentException("URI no válida: $uri")
