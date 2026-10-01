@@ -38,10 +38,30 @@ class TaskProvider : ContentProvider() {
     override fun query(uri: Uri, projection: Array<String>?, selection: String?,
                        selectionArgs: Array<String>?, sortOrder: String?): Cursor {
         val (sel, args) = filtroPorUri(uri, selection, selectionArgs)
+
+        // Solo las tareas del usuario con sesión abierta y que no estén marcadas para borrar
+        val user = SessionManager(context!!).username
+        val condiciones = mutableListOf<String>()
+        val parametros = mutableListOf<String>()
+        if (!sel.isNullOrEmpty()) {
+            condiciones += "($sel)"
+            parametros += args.orEmpty()
+        }
+        if (user == null) {
+            condiciones += "1 = 0"
+        } else {
+            condiciones += "username = ?"
+            parametros += user
+        }
+        condiciones += "pending_delete = 0"
+
         val q = SupportSQLiteQueryBuilder.builder(TABLA)
-            .columns(projection).selection(sel, args).orderBy(sortOrder).create()
+            .columns(projection)
+            .selection(condiciones.joinToString(" AND "), parametros.toTypedArray())
+            .orderBy(sortOrder)
+            .create()
         return db.query(q).also { it.setNotificationUri(context!!.contentResolver, uri) }
-    }b
+    }
 
     override fun insert(uri: Uri, values: ContentValues?): Uri? {
         if (matcher.match(uri) != TASKS) throw IllegalArgumentException("URI no válida: $uri")
